@@ -7,7 +7,8 @@ using namespace std;
   bool isIsomorphic(string s, string t) {
       unordered_map <char,int> mp1,mp2;
         int n=s.size();
-        for(int i=0;i<n;i++){
+        for(int i=0;i<n;i++)
+		{
             if(mp1[s[i]]!=mp2[t[i]]) 
                 return false;
                 
@@ -17,7 +18,7 @@ using namespace std;
         return true;
     }
 int main(int argc, char** argv) {
-	string s="foor";
+	string s="foo";
 	string t="bar";
 	if(isIsomorphic(s,t))
 	{
