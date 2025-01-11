@@ -1,28 +1,30 @@
-#include <iostream>
-
-/* run this program using the console pauser or add your own getch, system("pause") or input loop */
-class Solution {
+ class Solution {
 public:
-    long long countGood(vector<int>& nums, int k) {
-        long long i = 0, ans = 0, count = 0, n = nums.size();
-        unordered_map<long long, long long> m;
+    int numberOfSubarrays(vector<int>& nums, int k) {
         
-        for(int j=0; j<n; j++) {
-            m[nums[j]]++;
+        int start = 0 , end = 0 , oddcount = 0 , prevcount = 0 , ans =0;
 
-            if(m[nums[j]] > 1) 
-               count += m[nums[j]]  - 1;
-            
-            while(i <= j && count >= k) 
+        while(end < nums.size())
+        {
+            int odd_or_not = nums[end]%2;
+
+            if(odd_or_not == 1)
             {
-                ans += n - j;
-                m[nums[i]]--;
+                oddcount++;
+                prevcount = 0 ;
+            }
 
-                if(m[nums[i]] >= 1) 
-                   count -= m[nums[i]];
-                   
-                i++;
-            } 
+            while(oddcount == k)
+            {
+                prevcount++;
+                if(nums[start] %2 == 1)
+                 {
+                    oddcount--;
+                 }
+                 start++;
+            }
+            ans = ans + prevcount;
+            end++;
         }
         return ans;
     }
