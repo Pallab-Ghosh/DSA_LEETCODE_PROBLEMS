@@ -17,18 +17,14 @@ string shortestBeautifulSubstring(string s, int k) {
             
              if(count_one == k)
               {
-                  string temp = s.substr(start , end - start + 1);
-                  cout<<temp<<endl;
-
-                  if(temp.size() < mini_length)
-                  {
-                     mini_length = temp.size();
-                     ans = temp;
-                  }
-                  else if(temp.size() == mini_length)
-                  {
-                     ans = min(ans , temp);
-                  }
+                  int window_length = end - start + 1;
+                
+       // Update result if this window is shorter or lexicographically smaller
+      if(window_length < mini_length ||(window_length == mini_length && s.substr(start, window_length) < ans))
+               {
+                    mini_length = window_length;
+                    ans = s.substr(start, window_length);  // Update the result substring
+                }
 
                   if(s[start] == '1')
                   {
@@ -43,6 +39,7 @@ string shortestBeautifulSubstring(string s, int k) {
         return ans ;
         
     }
+
 int main(int argc, char** argv) {
 	return 0;
 }
