@@ -14,7 +14,7 @@ int numberOfSpecialSubstrings(string s)
 		char end_ele = s[end];
 		mp[end_ele]++;
 		
-		while(mp[end_ele] > 2)
+		while(mp[end_ele] > 1)
 		{
 			char delete_ch = s[start];
 			mp[delete_ch]--;
