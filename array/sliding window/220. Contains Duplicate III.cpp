@@ -1,29 +1,43 @@
-class Solution {
+ class Solution {
 public:
-ool containsNearbyAlmostDuplicate(vector<int>& nums, int indexDiff, int valueDiff) {
-        int s = 0, e = 0, n = nums.size(), res = 1e9 + 1;
-        map<int, int> mp;
+    bool containsNearbyAlmostDuplicate(vector<int>& nums, int indexDiff, int valueDiff) {
+        
+        int end = 0 , start = 0 , res = INT_MAX;
+        map<int,int>mp;
 
-        while(e < n)
-         {
-            if(e - s > indexDiff)
-             {
-                mp[nums[s]]--;
-                if(mp[nums[s]] == 0) mp.erase(nums[s]);
-                s++;
-            }
+        while(end < nums.size())
+        {
+            int end_ele = nums[end];
+             
 
-            auto it = mp.upper_bound(nums[e]);
+             while(end - start > indexDiff)
+              {
+                 int del_ele = nums[start];
+                 mp[del_ele]--;
+                 if(mp[del_ele] == 0)mp.erase(del_ele);
+                 start++;
+              }
 
-            if(it != mp.end()) 
-                res = min(res, abs(nums[e] - it->first));
+              auto it = mp.upper_bound(end_ele) ;// get the largest ele > current;
+              
+              // get the result 
+              if(it != mp.end())
+              {
 
-            if(it != mp.begin()) 
-                res = min(res, abs(nums[e] - prev(it)->first));
-            
-            mp[nums[e]]++;
-            e++;
+                 res = min(res , abs(it->first - end_ele)); 
+              }
+
+               //get the result which can be minimum than first one 
+              if(it!=mp.begin())
+              {
+                   int prev_of_large_ele = prev(it)->first; // get the prev value where it points
+                   res = min(res , abs(prev_of_large_ele -  end_ele));
+              }
+              mp[end_ele]++;
+              end++;
         }
-        return res <= valueDiff;
+        cout<<res;
+
+        return res <= valueDiff ? true : false;
     }
 };
